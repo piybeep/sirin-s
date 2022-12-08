@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: postgres-alpine
+    container_name: postgres-sirin-alpine
     image: postgres:15.1-alpine
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
     ports:
         - ${TYPEORM_PORT}:${TYPEORM_PORT}
   backend:
-    container_name: nest
+    container_name: nest-sirin
     build: 
       context: .
       dockerfile: Dockerfile
