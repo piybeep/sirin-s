@@ -13,16 +13,7 @@ export class CrewService {
   ) { }
 
   async findAll(): Promise<GetAllCrewDto[]> {
-    const crew = await this.crewRepository.find();
-    const result = crew.map(el => {
-      return {
-        id: el.id,
-        fullname: el.fullname,
-        vacancy: el.vacancy,
-        photo: el.photo
-      }
-    })
-    return result
+    return await this.crewRepository.find({ select: ['id', 'fullname', 'vacancy', 'photo'], loadEagerRelations: false });
   }
 
   findOne(id: number): Promise<GetOneCrewDto | null> {
