@@ -15,7 +15,8 @@ export class Crew {
 
     @Column({ nullable: true })
     sub_vacancy: string
-
+    
+    //FIXME:saving photo and relations
     @Column({ nullable: false })
     photo: string
 

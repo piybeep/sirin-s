@@ -11,6 +11,7 @@ export class Reviews {
     @Column()
     vacancy: string
 
+    //FIXME:saving photo and relations
     @Column()
     photo: string
 
