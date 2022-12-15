@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CrewModule } from './crew/crew.module';
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
         autoLoadEntities: true,
         logging: false,
       })
-    }), CrewModule],
+    }), CrewModule, ContactsModule],
 })
 export class AppModule { }
