@@ -3,6 +3,7 @@ import { CrewModule } from './crew/crew.module';
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { ContactsModule } from './contacts/contacts.module';
         autoLoadEntities: true,
         logging: false,
       })
-    }), CrewModule, ContactsModule],
+    }), CrewModule, ContactsModule, ReviewsModule],
 })
 export class AppModule { }

@@ -9,6 +9,7 @@ export class Images {
     @Column()
     path: string
 
+    //FIXME:saving photo and relations
     @Column()
     crew_id: number
 

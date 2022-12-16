@@ -4,9 +4,9 @@ services:
     image: postgres:15.1-alpine
     restart: always
     environment:
-        POSTGRES_USER: ${TYPEORM_USER}
+        POSTGRES_USER: ${TYPEORM_USERNAME}
         POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
-        POSTGRES_DB: ${TYPEORM_DB}
+        POSTGRES_DB: ${TYPEORM_DATABASE}
     volumes:
         - ./pgdata:/var/lib/postgresql/data
     ports:
@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - ./src:/app/src
+      - ./src:/app/src/
     depends_on:
       - db
     ports:
@@ -26,8 +26,8 @@ services:
     environment:
       API_PORT: ${API_PORT}
       TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
-      TYPEORM_USER: ${TYPEORM_USER}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
       TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
-      TYPEORM_DB: ${TYPEORM_DB}
+      TYPEORM_DATABASE: ${TYPEORM_DATABASE}
       TYPEORM_PORT: ${TYPEORM_PORT}
       TYPEORM_HOST: db
