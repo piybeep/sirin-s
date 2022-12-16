@@ -7,7 +7,7 @@ export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) { }
 
   @Get()
-  getReviews(@Query('start') start: number, @Query('count') count: number) {
+  getReviews(@Query('start') start: number, @Query('count') count: number) {        
     return this.reviewsService.find(start, count)
   }
 }

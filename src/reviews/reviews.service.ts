@@ -9,9 +9,11 @@ export class ReviewsService {
     private readonly reviewRepository: Repository<Reviews>) { }
 
     find(start: number, count: number) {
-        if (start < 0 || count < 0){
+        if (!start) start = 1
+        if (!count) count = 12
+        if (isNaN(start) || isNaN(count) || start <= 0 || count <= 0) {
             throw new BadRequestException('parameters start and count must be an integer')
         }
-            return this.reviewRepository.findAndCount({ skip: start-1, take: count })
+        return this.reviewRepository.findAndCount({ skip: start - 1, take: count })
     }
 }
