@@ -6,7 +6,7 @@ export class Sessions {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ type: "varchar", nullable: false })
+    @Column({ type: "varchar", nullable: true })
     refresh_token: string
 
     @Column({ type: "varchar", nullable: false })

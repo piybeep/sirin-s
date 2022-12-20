@@ -6,7 +6,8 @@ import { Sessions } from './entities/session.entity';
 import { JwtService, JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './../users/users.module';
 import { PassportModule } from '@nestjs/passport/dist';
-import { JwtStrategy } from './jwt.strategy';
+import { JwtStratey } from './strategies/jwt.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
@@ -15,11 +16,11 @@ import { JwtStrategy } from './jwt.strategy';
     UsersModule,
     JwtModule.register({
       secret: process.env.JWT_SALT,
-      signOptions: { expiresIn: '1 minute' }
+      signOptions: { expiresIn: '60s' }
     }),
   ],
   controllers: [SessionController],
-  providers: [SessionService, JwtService, JwtStrategy],
+  providers: [SessionService, JwtStratey, LocalStrategy],
   exports: [SessionService]
 })
 export class SessionModule { }

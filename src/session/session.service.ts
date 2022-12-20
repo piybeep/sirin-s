@@ -1,66 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateSessionDto } from './dto/create-session.dto';
 import { UsersService } from './../users/users.service';
 import { Repository } from 'typeorm';
 import { Sessions } from './entities/session.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from 'src/users/entities/users.entity';
-import { BadRequestException } from '@nestjs/common/exceptions';
 import * as bcrypt from "bcrypt"
-
+import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class SessionService {
   constructor(
-    private readonly jwtService: JwtService,
-    private readonly userService: UsersService,
     @InjectRepository(Sessions)
-    private readonly sessionRepository: Repository<Sessions>
+    private readonly sessionRepository: Repository<Sessions>,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) { }
 
-  async login(user: any) {
-    const _user: Users | null = await this.userService.findOne(user.email)
+  async validateUser(dto: AuthDto) {
+    const user = await this.usersService.findOneBy({ email: dto.email })
+
+    if (!user) throw new BadRequestException('No such user')
+    if (!(await bcrypt.compare(dto.password, user.token))) throw new UnauthorizedException('invalid password')
+
+    const { token, ...result } = user
+    return result
+  }
+
+  async signin(user: any): Promise<any> {
+    const payload = { email: user.email, sub: user.id }
     return {
-      access_token: this.jwtService.sign({
-        sub: _user?.id,
-        email: _user?.email,
-      }),
-      user: {
-        id: _user?.id,
-        email: _user?.email
-      }
+      access_token: this.jwtService.sign(payload)
     }
   }
 
-  async validateUser(createSessionDto: CreateSessionDto) {
-    const user = await this.userService.findOne(createSessionDto.email)
-
-    if (!user) throw new BadRequestException('No such user')
-    const salt = bcrypt.genSaltSync()
-
-    if (!(bcrypt.compareSync(createSessionDto.password, user.token)))
-      throw new BadRequestException('Invalid password')
-    return user
-  }
-
-  async findOne(payload: any) {
-    const user = await this.userService.findOne(payload.email)
-    return user
-  }
-
-  async createSession(user: any) {
-    const payload = { user_id: user.id, email: user.email, expiresIn: '1 minute' }
-    const access_token = this.jwtService.sign(payload, {secret: process.env.JWT_SALT})
-    const refresh_token = bcrypt.hashSync(access_token, bcrypt.genSaltSync())
-    const session = this.sessionRepository.insert({
-      refresh_token,
-      expiresIn: payload.expiresIn,
-      user_id: payload.user_id
-    })
-    return { access_token, refresh_token }
-  }
-  async logout() {
-
+  async generateToken(user: any) {
+    return {
+      access_token: this.jwtService.sign({ email: user.email, sub: user.id }, { secret: process.env.JWT_SALT })
+    }
   }
 }
