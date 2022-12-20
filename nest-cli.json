@@ -4,5 +4,11 @@
   "sourceRoot": "src",
   "generateOptions": {
     "spec": false
+  },
+  "compilerOptions": {
+    "assets": [
+      "mail/templates/**/*"
+    ],
+    "watchAssets": true
   }
 }
