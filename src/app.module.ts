@@ -1,14 +1,23 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { SessionModule } from './session/session.module';
+import { CrewModule } from './crew/crew.module';
 import { ConfigModule, ConfigService } from "@nestjs/config"
-import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { CoursesModule } from './courses/courses.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MailModule } from './mail/mail.module';
+import { getMailConfig } from './mail/mail.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: './.env' }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getMailConfig,
+    }),
     TypeOrmModule.forRootAsync({
-
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
@@ -23,7 +32,6 @@ import { UsersModule } from './users/users.module';
         autoLoadEntities: true,
         logging: false,
       })
-    }),
-    SessionModule, UsersModule,],
+    }), CrewModule, ContactsModule, ReviewsModule, CoursesModule, MailModule],
 })
 export class AppModule { }
