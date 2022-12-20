@@ -13,7 +13,7 @@ export class CoursesController {
   async create(@Body() createCourseDto: CreateCourseDto) {
     const course = await this.coursesService.create(createCourseDto);
     await this.mailService.sendNewApplicationMail(course)
-    return 'ok'
+    return course?.id
   }
 
   @Get()
