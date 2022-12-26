@@ -1,6 +1,6 @@
 FROM node:18-alpine AS dev
 WORKDIR /app
-COPY /*.json ./
+COPY ./*.json ./
 RUN npm install
 COPY ./src ./
 EXPOSE ${API_PORT}

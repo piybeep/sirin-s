@@ -79,18 +79,15 @@ export class SessionsService {
         };
     }
 
-    async saveRefreshToken(refresh_token: string, user_id: number) {
+    async saveRefreshToken(refresh_token: string, user_id: number): Promise<void> {
         const hashed_refresh_token: string = this.hashData(refresh_token)
         const session = await this.sessionRepository.findOneBy({ user_id })
-        let aa
         if (!session) {
-            aa = await this.sessionRepository.save({ refresh_token: hashed_refresh_token, user_id })
+            await this.sessionRepository.save({ refresh_token: hashed_refresh_token, user_id })
         }
         else {
-            aa = await this.sessionRepository.update({ user_id }, { refresh_token: hashed_refresh_token })
+            await this.sessionRepository.update({ user_id }, { refresh_token: hashed_refresh_token })
         }
-
-        return
     }
 
     hashData(data: string) {
