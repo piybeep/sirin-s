@@ -105,16 +105,16 @@ export class SessionsService {
     async refreshTokens(user: any, refresh_token: string) {
         const session = await this.sessionRepository.findOneBy({ user_id: user.sub })
         if (!session || !session.refresh_token)
-            throw new ForbiddenException('Access Denied1');
+            throw new ForbiddenException('Access Denied');
 
         const refresh_token_matches = await compare(
             refresh_token,
             session.refresh_token,
         );
-        if (!refresh_token_matches) throw new ForbiddenException('Access Denied2');
+        if (!refresh_token_matches) throw new ForbiddenException('Access Denied');
 
         const _user = await this.usersService.findOneBy({ id: session.user_id })
-        if (!_user) throw new ForbiddenException('Access Denied3');
+        if (!_user) throw new ForbiddenException('Access Denied');
 
         const tokens = await this.getTokens(session.user_id, _user.email);
         await this.saveRefreshToken(tokens.refresh_token, _user.id,);
