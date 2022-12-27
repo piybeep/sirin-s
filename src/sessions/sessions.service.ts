@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus, Res, ForbiddenException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Res, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -36,13 +36,13 @@ export class SessionsService {
         const user = await this.usersService.findOneBy({ email: loginDto.email })
 
         if (!user) {
-            throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY)
+            throw new BadRequestException('Invalid login or password')
         }
 
         const isPasswordCorrect = await compare(loginDto.password, user.password)
 
         if (!isPasswordCorrect) {
-            throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY)
+            throw new BadRequestException('Invalid login or password')
         }
 
         const tokens = await this.getTokens(user.id, user.email)
