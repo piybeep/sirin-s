@@ -1,7 +1,9 @@
-FROM node:18.9.1-alpine as develop
+FROM node:18-alpine AS dev
 WORKDIR /app
-COPY *.json ./
-RUN npm i -s 
+COPY ./*.json ./
+RUN npm install
 COPY ./src ./
-VOLUME ./src ./src
-CMD [ "npm", "run", "start:dev" ]
+EXPOSE ${API_PORT}
+VOLUME ./src ./src 
+CMD ["npm","run", "start:dev"]
+

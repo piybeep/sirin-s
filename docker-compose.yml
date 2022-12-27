@@ -8,9 +8,9 @@ services:
         POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
         POSTGRES_DB: ${TYPEORM_DATABASE}
     volumes:
-        - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     ports:
-        - ${TYPEORM_PORT}:${TYPEORM_PORT}
+      - ${TYPEORM_PORT}:${TYPEORM_PORT}
   backend:
     container_name: nest-sirin
     build: 
@@ -24,10 +24,13 @@ services:
     ports:
       - ${API_PORT}:${API_PORT}
     environment:
-      API_PORT: ${API_PORT}
-      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
-      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
-      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
-      TYPEORM_DATABASE: ${TYPEORM_DATABASE}
-      TYPEORM_PORT: ${TYPEORM_PORT}
-      TYPEORM_HOST: db
+      - API_PORT=${API_PORT}
+      - API_HOST=${API_HOST}
+      - TYPEORM_CONNECTION=${TYPEORM_CONNECTION}
+      - TYPEORM_USERNAME=${TYPEORM_USERNAME}
+      - TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
+      - TYPEORM_DATABASE=${TYPEORM_DATABASE}
+      - TYPEORM_PORT=${TYPEORM_PORT}
+      - TYPEORM_HOST=db
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
