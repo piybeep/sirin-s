@@ -1,14 +1,20 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from "@nestjs/config"
-import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { SessionsModule } from './sessions/sessions.module';
-import { UsersModule } from './users/users.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule, ConfigService } from "@nestjs/config"
+
 import { CrewModule } from './crew/crew.module';
+import { NewsModule } from './news/news.module';
+import { UsersModule } from './users/users.module';
+import { ImagesModule } from './images/images.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { ContactsModule } from './contacts/contacts.module';
-import { CoursesModule } from './courses/courses.module';
 import { getMailConfig } from './mail/mail.config';
+import { CoursesModule } from './courses/courses.module';
+import { SessionsModule } from './sessions/sessions.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
     imports: [
@@ -33,6 +39,23 @@ import { getMailConfig } from './mail/mail.config';
                 autoLoadEntities: true,
                 logging: false,
             })
-        }), SessionsModule, UsersModule, MailerModule, CrewModule, ReviewsModule, ContactsModule, CoursesModule],
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, 'static'),
+            serveStaticOptions: {}
+        }),
+        MulterModule.register({
+            storage: './static/',
+            preservePath: true
+        }),
+        SessionsModule,
+        UsersModule,
+        MailerModule,
+        CrewModule,
+        ReviewsModule,
+        ContactsModule,
+        CoursesModule,
+        NewsModule,
+        ImagesModule],
 })
 export class AppModule { }
