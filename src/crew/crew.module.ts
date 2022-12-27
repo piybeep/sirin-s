@@ -3,7 +3,7 @@ import { CrewService } from './crew.service';
 import { CrewController } from './crew.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Crew } from './entities/crew.entity';
-import { Images } from './entities/images.entity';
+import { Images } from '../images/images.entity';
 
 @Module({
   imports: [

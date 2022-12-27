@@ -1,4 +1,4 @@
-import { Images } from '../entities/images.entity';
+import { Images } from '../../images/images.entity';
 export class GetOneCrewDto {
     id: number | null
     fullname: string | null

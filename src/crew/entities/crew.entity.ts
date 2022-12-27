@@ -1,5 +1,5 @@
 import { Column, UpdateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, OneToOne } from 'typeorm';
-import { Images } from './images.entity';
+import { Images } from '../../images/images.entity';
 
 @Entity('crew')
 export class Crew {
@@ -15,7 +15,7 @@ export class Crew {
 
     @Column({ nullable: true })
     sub_vacancy: string
-    
+
     //FIXME:saving photo and relations
     @Column({ nullable: false })
     photo: string
