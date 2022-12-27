@@ -1,5 +1,7 @@
-import { join } from 'path';
+import { extname, join } from 'path';
 import { Module } from '@nestjs/common';
+import { Request } from 'express';
+import { diskStorage } from 'multer';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
@@ -15,6 +17,8 @@ import { getMailConfig } from './mail/mail.config';
 import { CoursesModule } from './courses/courses.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { execSync } from 'child_process';
+import { existsSync, mkdir, mkdirSync } from 'fs';
 
 @Module({
     imports: [
@@ -41,13 +45,10 @@ import { ContactsModule } from './contacts/contacts.module';
             })
         }),
         ServeStaticModule.forRoot({
-            rootPath: join(__dirname, 'static'),
+            rootPath: join(__dirname, 'static/'),
             serveStaticOptions: {}
         }),
-        MulterModule.register({
-            storage: './static/',
-            preservePath: true
-        }),
+        
         SessionsModule,
         UsersModule,
         MailerModule,

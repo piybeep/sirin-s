@@ -30,13 +30,13 @@ export class NewsController {
     if (files?.images) {
       for (let file of files.images) {
         _images.push({
-          path: join(__dirname, 'static', file.originalname),
+          path: join(__dirname, '..', '..', 'static', file.filename),
         })
       }
     }
 
     if (files.preview_image) {
-      _images.push({ path: join(__dirname, 'static', files.preview_image[0].originalname) })
+      _images.push({ path: join(__dirname, '..', '..', 'static', files.preview_image[0].filename) })
     }
 
     return await this.imagesService.create(_images)
