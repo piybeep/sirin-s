@@ -4,16 +4,16 @@ services:
     image: postgres:15.1-alpine
     restart: always
     environment:
-        POSTGRES_USER: ${TYPEORM_USERNAME}
-        POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
-        POSTGRES_DB: ${TYPEORM_DATABASE}
+      POSTGRES_USER: ${TYPEORM_USERNAME}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
+      POSTGRES_DB: ${TYPEORM_DATABASE}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - ${TYPEORM_PORT}:${TYPEORM_PORT}
   backend:
     container_name: nest-sirin
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
@@ -34,3 +34,9 @@ services:
       - TYPEORM_HOST=db
       - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
       - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - MAIL_TRANSPORT=${MAIL_TRANSPORT}
+      - MAIL_FROM_NAME=${MAIL_FROM_NAME}
+      - MAIL_TO=${MAIL_TO}
+      - MAIL_USER=${MAIL_USER}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_HOST=${MAIL_HOST}

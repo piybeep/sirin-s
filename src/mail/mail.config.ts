@@ -26,7 +26,6 @@ export const getMailConfig = async (
             },
         },
     };
-    console.log(conf);
     return conf
 
 };
