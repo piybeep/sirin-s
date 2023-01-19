@@ -38,7 +38,7 @@ export class NewsController {
 
   @Get()
   async findAll(@Query('start') start: number, @Query('count') count: number) {
-    const data: [News[], number] = await this.newsService.findAll(start , count);
+    const data: [News[], number] = await this.newsService.findAll(start, count);
     return { data: data[0], count: data[1] };
   }
 
