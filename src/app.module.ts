@@ -1,8 +1,6 @@
-// import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
-// import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { CrewModule } from './crew/crew.module';
