@@ -23,7 +23,7 @@ export class NewsService {
   async create(createNewsDto: CreateNewsDto) {
     try {
       let payload: Partial<News> = { ...createNewsDto }
-      let pre_images: Images | null
+      let pre_images: Images | null;
       if (createNewsDto.preview_image_id) {
         pre_images = await this.imagesService.getImage(createNewsDto.preview_image_id)
         if (pre_images) {
