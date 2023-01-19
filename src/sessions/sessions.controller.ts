@@ -5,7 +5,7 @@ import { AccessTokenGuard } from './guards/access-token.guard';
 import { JwtRefreshGuard } from './guards/refresh-token.guard';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 
-@ApiTags("sign")
+@ApiTags('sign')
 @Controller('/sign')
 export class SessionsController {
     constructor(
