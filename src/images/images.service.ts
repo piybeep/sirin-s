@@ -13,7 +13,7 @@ export class ImagesService {
     async create(images: Express.Multer.File[]) {
         const _images: CreateImagesDto[] = []
         for (let i in images) {
-            _images.push({ filename: images[i].filename, type: images[i].mimetype.split('/')[1] })
+      _images.push({
         }
         return await this.imagesRepository.save(_images)
     }
