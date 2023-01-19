@@ -29,7 +29,7 @@ export class CrewService {
     if (createCrewDto.images) {
       let _images: Images[] = []
       for (let i in createCrewDto.images) {
-        let image: Images | null = await this.imagesService.getImage(createCrewDto.images[i])
+        const image: Images | null = await this.imagesService.getImage(createCrewDto.images[i])
         if (image) _images.push(image)
       }
       delete payload.images
