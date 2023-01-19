@@ -9,7 +9,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   'jwt-refresh',
 ) {
   constructor() {
-    var cookieExctractor = function (req: any) {
+    const cookieExctractor = function (req: any) {
       let refresh_token = null;
       if (req && req.cookies) {
         refresh_token = req.cookies['refresh_token'];

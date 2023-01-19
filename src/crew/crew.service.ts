@@ -27,10 +27,10 @@ export class CrewService {
   }
 
   async create(createCrewDto: CreateCrewDto) {
-    let payload: any = { ...createCrewDto };
+    const payload: any = { ...createCrewDto };
     if (createCrewDto.images) {
-      let _images: Images[] = [];
-      for (let i in createCrewDto.images) {
+      const _images: Images[] = [];
+      for (const i in createCrewDto.images) {
         let image: Images | null = await this.imagesService.getImage(
           createCrewDto.images[i],
         );
@@ -40,7 +40,7 @@ export class CrewService {
       payload.images = _images;
     }
     if (createCrewDto.photo_id) {
-      let photo: Images | null = await this.imagesService.getImage(
+      const photo: Images | null = await this.imagesService.getImage(
         createCrewDto.photo_id,
       );
       if (photo) payload.photo = [photo];

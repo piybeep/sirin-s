@@ -22,7 +22,7 @@ export class NewsService {
 
   async create(createNewsDto: CreateNewsDto) {
     try {
-      let payload: Partial<News> = { ...createNewsDto };
+      const payload: Partial<News> = { ...createNewsDto };
       let pre_images: Images | null;
       if (createNewsDto.preview_image_id) {
         pre_images = await this.imagesService.getImage(
@@ -65,7 +65,7 @@ export class NewsService {
     }
 
     const _images: Images[] = [];
-    for (let i in updateNewsDto?.images) {
+    for (const i in updateNewsDto?.images) {
       const image: Images | null = await this.imagesService.getImage(
         +updateNewsDto.images[+i],
       );
