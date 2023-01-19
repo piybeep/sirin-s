@@ -44,7 +44,7 @@ export class NewsService {
     if (!count) count = 12;
     if (isNaN(start) || isNaN(count) || start <= 0 || count <= 0) {
       throw new BadRequestException(
-        'parameters start and count must be an integer',
+        'параметры start и count должны быть положительными и целочисленными ',
       );
     }
     return this.newsRepository.findAndCount({
@@ -61,7 +61,7 @@ export class NewsService {
   async update(id: number, updateNewsDto: UpdateNewsDto) {
     const newpage = await this.newsRepository.findOneBy({ id });
     if (!newpage) {
-      throw new HttpException('No such News', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Нет такой новости', HttpStatus.BAD_REQUEST);
     }
 
     const _images: Images[] = [];
