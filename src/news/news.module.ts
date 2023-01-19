@@ -15,7 +15,7 @@ import { extname } from 'path';
   MulterModule.register({
     storage: diskStorage({
       destination: (req: Request, file: Express.Multer.File, cb) => {
-        const uploadPath = './static/'
+          const uploadPath = './static/';
         if (!existsSync(uploadPath)) {
           mkdirSync(uploadPath)
         }
