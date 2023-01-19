@@ -5,10 +5,11 @@ import { Contacts } from './contacts.entity';
 
 @Injectable()
 export class ContactsService {
-    constructor(
-        @InjectRepository(Contacts)
-        private readonly contactsRepository: Repository<Contacts>) { }
-    getContacts() {
-        return this.contactsRepository.find()
-    }
+  constructor(
+    @InjectRepository(Contacts)
+    private readonly contactsRepository: Repository<Contacts>,
+  ) {}
+  getContacts() {
+    return this.contactsRepository.find();
+  }
 }

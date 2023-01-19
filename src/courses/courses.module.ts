@@ -8,6 +8,6 @@ import { MailService } from './../mail/mail.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Course])],
   controllers: [CoursesController],
-  providers: [CoursesService, MailService]
+  providers: [CoursesService, MailService],
 })
-export class CoursesModule { }
+export class CoursesModule {}

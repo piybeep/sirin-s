@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
 
-export class TokenDto {
+export class CreateImagesDto {
   @ApiProperty()
-  id: number;
+  filename: string;
   @ApiProperty()
-  email: string;
+  type: string;
 }

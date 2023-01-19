@@ -1,19 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { MailerService } from '@nestjs-modules/mailer';
 import { MailService } from './../mail/mail.service';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 
-@Controller('courses')
+@ApiTags('courses')
+@Controller('/courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService,
-    private readonly mailService: MailService) { }
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly mailService: MailService,
+  ) {}
 
   @Post()
   async create(@Body() createCourseDto: CreateCourseDto) {
     const course = await this.coursesService.create(createCourseDto);
-    await this.mailService.sendNewApplicationMail(course)
-    return {id: course?.id}
+    await this.mailService.sendNewApplicationMail(course);
+    return { id: course?.id };
   }
 
   @Get()
