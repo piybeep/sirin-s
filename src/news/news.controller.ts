@@ -9,7 +9,7 @@ import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 
 @ApiTags('news')
-@Controller("/news")
+@Controller('/news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) { }
 
