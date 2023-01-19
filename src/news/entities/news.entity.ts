@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
 import { ManyToMany } from 'typeorm';
 import { Images } from './../../images/images.entity';
 @Entity('news')
