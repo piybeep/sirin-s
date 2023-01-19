@@ -62,7 +62,7 @@ export class NewsService {
       throw new HttpException('No such News', HttpStatus.BAD_REQUEST);
     }
 
-    let _images: Images[] = [];
+    const _images: Images[] = [];
     for (let i in updateNewsDto?.images) {
       const image: Images | null = await this.imagesService.getImage(
         +updateNewsDto.images[+i],
