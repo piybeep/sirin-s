@@ -31,7 +31,7 @@ export class CrewService {
     if (createCrewDto.images) {
       const _images: Images[] = [];
       for (const i in createCrewDto.images) {
-        let image: Images | null = await this.imagesService.getImage(
+        const image: Images | null = await this.imagesService.getImage(
           createCrewDto.images[i],
         );
         if (image) _images.push(image);
