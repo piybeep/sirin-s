@@ -1,4 +1,14 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateNewsDto } from './create-news.dto';
+import { ApiProperty } from '@nestjs/swagger/dist';
 
-export class UpdateNewsDto extends PartialType(CreateNewsDto) {}
+export class UpdateNewsDto {
+  @ApiProperty()
+  id?: number;
+  @ApiProperty()
+  title?: string
+  @ApiProperty()
+  text?: string
+  @ApiProperty()
+  preview_image_id?: number
+  @ApiProperty()
+  images?: Array<number> ;
+}

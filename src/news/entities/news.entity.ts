@@ -1,7 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
 import { ManyToMany } from 'typeorm';
 import { Images } from './../../images/images.entity';
-import { JoinTable } from 'typeorm';
 @Entity('news')
 export class News {
     @PrimaryGeneratedColumn()
@@ -13,14 +12,17 @@ export class News {
     @Column({ nullable: false, type: 'text' })
     text: string
 
-    @Column()
-    preview_image: string
+    @Column({ nullable: true })
+    preview_image_id: number
 
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToMany(() => Images)
-    @JoinTable()
+    @ManyToMany(() => Images, (images) => images.news, { eager: true })
     images: Images[]
-    
+
+    @OneToMany(() => Images, (images) => images.pre_news, { eager: true })
+    @JoinColumn({ name: 'preview_image_id' })
+    pre_images: Images[]
+
 }

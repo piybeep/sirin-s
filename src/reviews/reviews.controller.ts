@@ -1,8 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import { Query } from '@nestjs/common/decorators';
 import { ReviewsService } from './reviews.service';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 
-@Controller('reviews')
+@ApiTags('reviews')
+@Controller('/reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) { }
 

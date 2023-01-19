@@ -3,11 +3,11 @@ import { CrewService } from './crew.service';
 import { CrewController } from './crew.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Crew } from './entities/crew.entity';
-import { Images } from '../images/images.entity';
+import { ImagesModule } from './../images/images.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Crew, Images])],
+    TypeOrmModule.forFeature([Crew]), ImagesModule],
   controllers: [CrewController],
   providers: [CrewService],
 })

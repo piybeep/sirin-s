@@ -3,9 +3,35 @@ import { ImagesService } from './images.service';
 import { ImagesController } from './images.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Images } from './images.entity';
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { existsSync, mkdirSync } from 'fs';
+import { extname } from 'path';
+import { Request } from 'express';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Images])],
+  imports: [TypeOrmModule.forFeature([Images]),
+  MulterModule.registerAsync({
+    useFactory: () => ({
+      storage: diskStorage({
+        destination: (req: Request, file: Express.Multer.File, cb) => {
+          const uploadPath = './static/'
+          if (!existsSync(uploadPath)) {
+            mkdirSync(uploadPath)
+          }
+          cb(null, uploadPath)
+        },
+        filename: (req: Request, file: Express.Multer.File, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(
+              () => (Math.round(Math.random() * 16)).toString(16)).join('')
+          cb(null, `${randomName}${extname(file.originalname)}`)
+        }
+      })
+    })
+  })
+  ],
   controllers: [ImagesController],
   providers: [ImagesService],
   exports: [ImagesService]

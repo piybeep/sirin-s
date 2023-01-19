@@ -1,21 +1,16 @@
-
-import { Controller, Body, Post, UseGuards, Get, Req, Res, Delete, UnauthorizedException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, UseGuards, Get, Req, Res, Delete, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
-import { UsersService } from './../users/users.service';
 import { Request, Response } from 'express';
-import { ConfigService } from '@nestjs/config';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { JwtRefreshGuard } from './guards/refresh-token.guard';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 
-@Controller('sign')
+@ApiTags("sign")
+@Controller('/sign')
 export class SessionsController {
     constructor(
         private readonly sessionsService: SessionsService,
-        private readonly usersService: UsersService,
-        private readonly configService: ConfigService
-    ) {
-
-    }
+    ) { }
 
     @Post()
     async login(@Res({ passthrough: true }) res: Response, @Req() req: Request) {

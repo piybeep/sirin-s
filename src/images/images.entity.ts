@@ -1,5 +1,5 @@
 import { News } from "src/news/entities/news.entity";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity,  JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Crew } from "../crew/entities/crew.entity";
 
 @Entity('images')
@@ -8,20 +8,23 @@ export class Images {
     id: number
 
     @Column()
-    path: string
+    filename: string
 
-    //FIXME:saving photo and relations
-    @Column({ nullable: true })
-    crew_id: number
+    @Column()
+    type: string
 
-    @ManyToOne(() => Crew, (crew) => crew.images)
-    @JoinColumn({ name: 'crew_id', referencedColumnName: 'id' })
-    crew: Crew
+    @ManyToMany(() => Crew, (crew) => crew.images)
+    @JoinTable({ name: "crew_images" })
+    crew: Crew[]
 
+    @ManyToOne(()=>Crew, (crew)=>crew.photo)
+    crew_photo: Crew
+
+    @ManyToMany(() => News, (news) => news.images)
+    @JoinTable({ name: "news_images" })
+    news: News[]
+
+    @ManyToOne(() => News, (news) => news.pre_images)
+    pre_news: News
 
 }
-
-
-//one crew memmber has main image and many other images, but images may belong to only one crew member
-
-//one news page has preview image and many other images, but images may belongs to only one news page

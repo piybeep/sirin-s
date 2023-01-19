@@ -1,17 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-import { Query, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common/decorators';
+import { Put, Query, UseInterceptors } from '@nestjs/common/decorators';
 import { FileFieldsInterceptor } from '@nestjs/platform-express/multer';
-import { ImagesService } from 'src/images/images.service';
-import { join } from 'path';
+import { News } from 'src/news/entities/news.entity';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 
-@Controller('news')
+@ApiTags('news')
+@Controller("/news")
 export class NewsController {
-  constructor(private readonly newsService: NewsService,
-    private readonly imagesService: ImagesService) { }
+  constructor(private readonly newsService: NewsService) { }
 
+  @UseGuards(AccessTokenGuard)
   @Post()
   @UseInterceptors(FileFieldsInterceptor(
     [
@@ -21,33 +23,16 @@ export class NewsController {
   ))
 
   async create(
-    @UploadedFiles()
-    files: { preview_image: Express.Multer.File[], images?: Express.Multer.File[] },
     @Body()
     createNewsDto: CreateNewsDto
   ) {
-    let _images: Array<any> = []
-    if (files?.images) {
-      for (let file of files.images) {
-        _images.push({
-          path: join(__dirname, '..', '..', 'static', file.filename),
-        })
-      }
-    }
-
-    if (files.preview_image) {
-      _images.push({ path: join(__dirname, '..', '..', 'static', files.preview_image[0].filename) })
-    }
-
-    return await this.imagesService.create(_images)
-
-    // this.newsService.create(createNewsDto);
-
+    return await this.newsService.create(createNewsDto);
   }
 
   @Get()
-  findAll(@Query('start') start: number, @Query('count') count: number) {
-    return this.newsService.findAll(start, count);
+  async findAll(@Query('start') start: number, @Query('count') count: number) {
+    const data: [News[], number] = await this.newsService.findAll(start, count);
+    return { data: data[0], count: data[1] }
   }
 
   @Get(':id')
@@ -55,11 +40,18 @@ export class NewsController {
     return this.newsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
+  @UseGuards(AccessTokenGuard)
+  @Put(':id')
+  update(
+    @Param('id')
+    id: string,
+    @Body()
+    updateNewsDto: UpdateNewsDto
+  ) {
     return this.newsService.update(+id, updateNewsDto);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.newsService.remove(+id);

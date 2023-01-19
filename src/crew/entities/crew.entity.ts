@@ -1,4 +1,13 @@
-import { Column, UpdateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import {
+    Column,
+    UpdateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    ManyToMany,
+    JoinTable,
+    OneToMany,
+    JoinColumn
+} from 'typeorm';
 import { Images } from '../../images/images.entity';
 
 @Entity('crew')
@@ -7,18 +16,17 @@ export class Crew {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ nullable: false })
+    @Column()
     fullname: string
 
-    @Column({ nullable: false })
+    @Column()
     vacancy: string
 
     @Column({ nullable: true })
     sub_vacancy: string
 
-    //FIXME:saving photo and relations
-    @Column({ nullable: false })
-    photo: string
+    @Column()
+    photo_id: number
 
     @Column()
     education: string
@@ -29,9 +37,13 @@ export class Crew {
     @Column({ nullable: true })
     achievements: string
 
-    @OneToMany(() => Images, (images) => images.crew, { eager: true })
+    @ManyToMany(() => Images, (images) => images.crew, { eager: true })
+    @JoinTable({ name: "crew_images" })
     images: Images[]
 
+    @OneToMany(() => Images, (images) => images.crew_photo, { eager: true })
+    @JoinColumn({ name: "photo_id" })
+    photo: Images
     @UpdateDateColumn()
     updatedAt: Date
 

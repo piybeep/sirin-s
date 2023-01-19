@@ -1,17 +1,14 @@
-import { Injectable, HttpException, HttpStatus, Res, ForbiddenException, BadRequestException } from '@nestjs/common';
+import { Injectable, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 
 import { Repository } from 'typeorm';
-import { compare, hash, genSalt, hashSync, genSaltSync } from 'bcrypt'
-import { Response } from 'express';
+import { compare, hashSync, genSaltSync } from 'bcrypt'
 
 import { LoginDto } from './dto/login.dto';
 import { UsersService } from '../users/users.service';
 import { Sessions } from './entities/sessions.entity';
-import { User } from '../users/entities/user.entity';
-import { TokenDto } from './dto/token-payload.dto';
 
 
 @Injectable()
@@ -27,12 +24,6 @@ export class SessionsService {
     }
 
     async login(loginDto: LoginDto) {
-        const errorResponse = {
-            errors: {
-                'email or password': 'is invalid'
-            }
-        }
-
         const user = await this.usersService.findOneBy({ email: loginDto.email })
 
         if (!user) {
