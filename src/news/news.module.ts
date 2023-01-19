@@ -11,27 +11,29 @@ import { existsSync, mkdirSync } from 'fs';
 import { extname } from 'path';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News]), ImagesModule,
-  MulterModule.register({
-    storage: diskStorage({
-      destination: (req: Request, file: Express.Multer.File, cb) => {
-        const uploadPath = './static/'
-        if (!existsSync(uploadPath)) {
-          mkdirSync(uploadPath)
-        }
-        cb(null, uploadPath)
-      },
-      filename: (req: Request, file: Express.Multer.File, cb) => {
-        const randomName = Array(32)
-          .fill(null)
-          .map(
-            () => (Math.round(Math.random() * 16)).toString(16)).join('')
-        cb(null, `${randomName}${extname(file.originalname)}`)
-      },
-
+  imports: [
+    TypeOrmModule.forFeature([News]),
+    ImagesModule,
+    MulterModule.register({
+      storage: diskStorage({
+        destination: (req: Request, file: Express.Multer.File, cb) => {
+          const uploadPath = './static/';
+          if (!existsSync(uploadPath)) {
+            mkdirSync(uploadPath);
+          }
+          cb(null, uploadPath);
+        },
+        filename: (req: Request, file: Express.Multer.File, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
     }),
-  }),],
+  ],
   controllers: [NewsController],
-  providers: [NewsService]
+  providers: [NewsService],
 })
-export class NewsModule { }
+export class NewsModule {}

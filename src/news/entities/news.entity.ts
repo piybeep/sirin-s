@@ -1,28 +1,34 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { ManyToMany } from 'typeorm';
 import { Images } from './../../images/images.entity';
 @Entity('news')
 export class News {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    title: string
+  @Column()
+  title: string;
 
-    @Column({ nullable: false, type: 'text' })
-    text: string
+  @Column({ nullable: false, type: 'text' })
+  text: string;
 
-    @Column({ nullable: true })
-    preview_image_id: number
+  @Column({ nullable: true })
+  preview_image_id: number;
 
-    @CreateDateColumn()
-    createdAt: Date
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @ManyToMany(() => Images, (images) => images.news, { eager: true })
-    images: Images[]
+  @ManyToMany(() => Images, (images) => images.news, { eager: true })
+  images: Images[];
 
-    @OneToMany(() => Images, (images) => images.pre_news, { eager: true })
-    @JoinColumn({ name: 'preview_image_id' })
-    pre_images: Images[]
-
+  @OneToMany(() => Images, (images) => images.pre_news, { eager: true })
+  @JoinColumn({ name: 'preview_image_id' })
+  pre_images: Images[];
 }

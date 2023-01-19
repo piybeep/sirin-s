@@ -13,32 +13,38 @@ export class CrewService {
   constructor(
     @InjectRepository(Crew)
     private readonly crewRepository: Repository<Crew>,
-    private readonly imagesService: ImagesService
-  ) { }
+    private readonly imagesService: ImagesService,
+  ) {}
 
   async findAll(): Promise<GetAllCrewDto[]> {
-    return await this.crewRepository.find({ select: ['id', 'fullname', 'vacancy', 'photo'], /* loadEagerRelations: false */ });
+    return await this.crewRepository.find({
+      select: ['id', 'fullname', 'vacancy', 'photo'],
+    });
   }
 
   findOne(id: number): Promise<GetOneCrewDto | null> {
-    return this.crewRepository.findOneBy({ id })
+    return this.crewRepository.findOneBy({ id });
   }
 
   async create(createCrewDto: CreateCrewDto) {
-    let payload: any = { ...createCrewDto }
+    let payload: any = { ...createCrewDto };
     if (createCrewDto.images) {
-      let _images: Images[] = []
+      let _images: Images[] = [];
       for (let i in createCrewDto.images) {
-        let image: Images | null = await this.imagesService.getImage(createCrewDto.images[i])
-        if (image) _images.push(image)
+        let image: Images | null = await this.imagesService.getImage(
+          createCrewDto.images[i],
+        );
+        if (image) _images.push(image);
       }
-      delete payload.images
-      payload.images = _images
+      delete payload.images;
+      payload.images = _images;
     }
     if (createCrewDto.photo_id) {
-      let photo: Images | null = await this.imagesService.getImage(createCrewDto.photo_id)
-      if (photo) payload.photo = [photo]
+      let photo: Images | null = await this.imagesService.getImage(
+        createCrewDto.photo_id,
+      );
+      if (photo) payload.photo = [photo];
     }
-    return await this.crewRepository.save(payload)
+    return await this.crewRepository.save(payload);
   }
 }

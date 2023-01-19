@@ -6,9 +6,8 @@ import { Crew } from './entities/crew.entity';
 import { ImagesModule } from './../images/images.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Crew]), ImagesModule],
+  imports: [TypeOrmModule.forFeature([Crew]), ImagesModule],
   controllers: [CrewController],
   providers: [CrewService],
 })
-export class CrewModule { }
+export class CrewModule {}

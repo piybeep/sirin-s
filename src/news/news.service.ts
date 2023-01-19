@@ -18,18 +18,20 @@ export class NewsService {
     @InjectRepository(News)
     private readonly newsRepository: Repository<News>,
     private readonly imagesService: ImagesService,
-  ) { }
+  ) {}
 
   async create(createNewsDto: CreateNewsDto) {
     try {
-      let payload: Partial<News> = { ...createNewsDto }
-      let pre_images: Images | null
+      let payload: Partial<News> = { ...createNewsDto };
+      let pre_images: Images | null;
       if (createNewsDto.preview_image_id) {
-        pre_images = await this.imagesService.getImage(createNewsDto.preview_image_id)
+        pre_images = await this.imagesService.getImage(
+          createNewsDto.preview_image_id,
+        );
         if (pre_images) {
-          payload.pre_images = [pre_images]
-        }        
-      }      
+          payload.pre_images = [pre_images];
+        }
+      }
       const newpage: News = await this.newsRepository.save(payload);
       return { id: newpage.id };
     } catch (e) {

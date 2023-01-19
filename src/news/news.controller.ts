@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
@@ -9,22 +17,21 @@ import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 
 @ApiTags('news')
-@Controller("/news")
+@Controller('/news')
 export class NewsController {
-  constructor(private readonly newsService: NewsService) { }
+  constructor(private readonly newsService: NewsService) {}
 
   @UseGuards(AccessTokenGuard)
   @Post()
-  @UseInterceptors(FileFieldsInterceptor(
-    [
-      { name: "preview_image", maxCount: 1 },
-      { name: 'images', maxCount: 100 }
-    ]
-  ))
-
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'preview_image', maxCount: 1 },
+      { name: 'images', maxCount: 10 },
+    ]),
+  )
   async create(
     @Body()
-    createNewsDto: CreateNewsDto
+    createNewsDto: CreateNewsDto,
   ) {
     return await this.newsService.create(createNewsDto);
   }
@@ -32,7 +39,7 @@ export class NewsController {
   @Get()
   async findAll(@Query('start') start: number, @Query('count') count: number) {
     const data: [News[], number] = await this.newsService.findAll(start, count);
-    return { data: data[0], count: data[1] }
+    return { data: data[0], count: data[1] };
   }
 
   @Get(':id')
@@ -46,7 +53,7 @@ export class NewsController {
     @Param('id')
     id: string,
     @Body()
-    updateNewsDto: UpdateNewsDto
+    updateNewsDto: UpdateNewsDto,
   ) {
     return this.newsService.update(+id, updateNewsDto);
   }

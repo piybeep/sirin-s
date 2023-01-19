@@ -1,18 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 enum contactsType {
-    PHONE="phone",
-    EMAIL="email"
+  PHONE = 'phone',
+  EMAIL = 'email',
 }
 
 @Entity('contacts')
 export class Contacts {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: "enum", enum: contactsType })
-    type: contactsType
+  @Column({ type: 'enum', enum: contactsType })
+  type: contactsType;
 
-    @Column()
-    data: string
+  @Column()
+  data: string;
 }

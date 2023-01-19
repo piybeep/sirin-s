@@ -1,24 +1,30 @@
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { hash, genSalt } from 'bcrypt'
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { hash, genSalt } from 'bcrypt';
 import { Sessions } from '../../sessions/entities/sessions.entity';
 
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number //
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ unique: true })
-    email: string
+  @Column({ unique: true })
+  email: string;
 
-    @Column()
-    password: string //
+  @Column()
+  password: string;
 
-    @BeforeInsert()
-    async hashPassword() {
-        const salt = await genSalt(10)
-        this.password = await hash(this.password, salt)
-    }
+  @BeforeInsert()
+  async hashPassword() {
+    const salt = await genSalt(10);
+    this.password = await hash(this.password, salt);
+  }
 
-    @OneToMany(() => Sessions, (session) => session.user)
-    session: Sessions[]
+  @OneToMany(() => Sessions, (session) => session.user)
+  session: Sessions[];
 }

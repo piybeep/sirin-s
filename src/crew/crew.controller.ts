@@ -6,7 +6,7 @@ import { CreateCrewDto } from './dto/create-crew.dto';
 @ApiTags('crew')
 @Controller('/crew')
 export class CrewController {
-  constructor(private readonly crewService: CrewService) { }
+  constructor(private readonly crewService: CrewService) {}
 
   @Get()
   findAll() {
@@ -20,6 +20,6 @@ export class CrewController {
 
   @Post()
   create(@Body() createCrewDto: CreateCrewDto) {
-    return this.crewService.create(createCrewDto)
+    return this.crewService.create(createCrewDto);
   }
 }

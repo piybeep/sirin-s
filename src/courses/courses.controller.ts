@@ -7,14 +7,16 @@ import { ApiTags } from '@nestjs/swagger/dist/decorators';
 @ApiTags('courses')
 @Controller('/courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService,
-    private readonly mailService: MailService) { }
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly mailService: MailService,
+  ) {}
 
   @Post()
   async create(@Body() createCourseDto: CreateCourseDto) {
     const course = await this.coursesService.create(createCourseDto);
-    await this.mailService.sendNewApplicationMail(course)
-    return { id: course?.id }
+    await this.mailService.sendNewApplicationMail(course);
+    return { id: course?.id };
   }
 
   @Get()

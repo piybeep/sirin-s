@@ -5,15 +5,15 @@ import { TokenDto } from './../dto/token-payload.dto';
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy, 'jwt') {
-    constructor() {
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: false,
-            secretOrKey: process.env.JWT_ACCESS_SECRET
-        });
-    }
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: process.env.JWT_ACCESS_SECRET,
+    });
+  }
 
-    async validate(payload: TokenDto) {
-        return payload;
-    }
+  async validate(payload: TokenDto) {
+    return payload;
+  }
 }

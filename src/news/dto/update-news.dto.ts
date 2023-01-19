@@ -4,11 +4,11 @@ export class UpdateNewsDto {
   @ApiProperty()
   id?: number;
   @ApiProperty()
-  title?: string
+  title?: string;
   @ApiProperty()
-  text?: string
+  text?: string;
   @ApiProperty()
-  preview_image_id?: number
+  preview_image_id?: number;
   @ApiProperty()
-  images?: Array<number> ;
+  images?: Array<number>;
 }
