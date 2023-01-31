@@ -56,7 +56,7 @@ export class SessionsController {
 
   @UseGuards(JwtRefreshGuard)
   @ApiResponse({ status: 200 })
-  @Get('/sign')
+  @Get()
   async refresh(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
