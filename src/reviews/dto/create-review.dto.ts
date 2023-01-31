@@ -1,11 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateReviewDto {
   @ApiProperty()
   fullname: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   vacancy?: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   photo_id?: number;
   @ApiProperty()
   text: string;
