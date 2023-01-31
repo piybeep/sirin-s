@@ -50,6 +50,7 @@ export class NewsService {
     return this.newsRepository.findAndCount({
       skip: start - 1,
       take: count,
+      order: {createdAt: 'DESC'},
       relations: { images: true },
     });
   }

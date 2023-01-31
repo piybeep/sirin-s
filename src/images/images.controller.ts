@@ -19,6 +19,7 @@ import {
 
 import { ImagesService } from './images.service';
 import { AccessTokenGuard } from 'src/sessions/guards/access-token.guard';
+import { Images } from 'src/images/images.entity';
 
 @ApiTags('images')
 @Controller('/images')
@@ -27,14 +28,14 @@ export class ImagesController {
 
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
-  @ApiResponse({ status: 200, type: Image })
+  @ApiResponse({ status: 200, type: Images })
   @Post()
   @UseInterceptors(FilesInterceptor('images', 100))
   async create(@UploadedFiles() files: Array<Express.Multer.File>) {
     return await this.imagesService.create(files);
   }
 
-  @ApiResponse({ status: 200, type: Image })
+  @ApiResponse({ status: 200, type: Images })
   @Get(':id')
   async getImage(@Param('id') id: string) {
     if (!id || isNaN(+id)) {
@@ -45,7 +46,7 @@ export class ImagesController {
 
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
-  @ApiOkResponse({ type: Image })
+  @ApiOkResponse({ type: Images })
   @Delete(':id')
   async deleteImage(@Param('id') id: string) {
     return await this.imagesService.deleteImage(+id);
