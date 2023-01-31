@@ -1,14 +1,9 @@
 module.exports = {
   root: true,
   env: {
-    // node: true,
-    // jest: true,
     es6: true,
   },
   extends: [
-    // 'plugin:@typescript-eslint/recommended',
-    // 'plugin:prettier/recommended',
-    // 'prettier'
     'plugin:@moneteam/nestjs/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -19,7 +14,6 @@ module.exports = {
     ecmaVersion: 'es2019',
   },
   plugins: [
-    // '@typescript-eslint/eslint-plugin'
     '@moneteam/nestjs',
   ],
   ignorePatterns: ['.eslintrc.js'],
