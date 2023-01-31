@@ -30,7 +30,7 @@ export class ImagesController {
   @UseGuards(AccessTokenGuard)
   @ApiResponse({ status: 200, type: Images })
   @Post()
-  @UseInterceptors(FilesInterceptor('images', 100))
+  @UseInterceptors(FilesInterceptor('images', 10))
   async create(@UploadedFiles() files: Array<Express.Multer.File>) {
     return await this.imagesService.create(files);
   }

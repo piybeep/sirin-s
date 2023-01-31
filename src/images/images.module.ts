@@ -6,19 +6,22 @@ import { Images } from './images.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { existsSync, mkdirSync } from 'fs';
-import { extname } from 'path';
+import { extname, join, resolve } from 'path';
 import { Request } from 'express';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Images]),
     MulterModule.registerAsync({
-      useFactory: () => ({
+      useFactory: async () => ({
+        dest: join(resolve(), 'dist', 'static'),
         storage: diskStorage({
           destination: (req: Request, file: Express.Multer.File, cb) => {
-            const uploadPath = './static/';
+            const uploadPath = join(resolve(), 'dist', 'static');
+
             if (!existsSync(uploadPath)) {
               mkdirSync(uploadPath);
+              console.log('"static" directory created.', Date.now());
             }
             cb(null, uploadPath);
           },

@@ -41,10 +41,9 @@ import { join, resolve } from 'path';
     }),
 
     ServeStaticModule.forRoot({
-      rootPath: join(resolve(), '/src/static'),
-      serveRoot: '/api/static'
+      rootPath: join(resolve(), 'dist', 'static'),
+      serveRoot: '/api/static',
     }),
-
     ImagesModule,
     NewsModule,
     CrewModule,
