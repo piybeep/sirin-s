@@ -7,6 +7,6 @@ export class CreateNewsDto {
   text: string;
   @ApiPropertyOptional()
   preview_image_id?: number;
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: Images, isArray: true })
   images?: Images[];
 }
