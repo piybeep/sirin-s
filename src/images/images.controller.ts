@@ -34,7 +34,6 @@ export class ImagesController {
     }
     return await this.imagesService.getImage(+id);
   }
-  
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Delete(':id')
