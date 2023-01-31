@@ -1,11 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCrewDto {
   @ApiProperty()
   fullname: string;
   @ApiProperty()
   vacancy: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   sub_vacancy?: string;
   @ApiProperty()
   photo_id: number;
@@ -13,8 +13,8 @@ export class CreateCrewDto {
   education: string;
   @ApiProperty()
   experience: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   achievements?: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   images?: [number];
 }

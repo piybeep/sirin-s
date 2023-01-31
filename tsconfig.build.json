@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "static/"],
   "compilerOptions": {
-    "assets": ["mail/templates/**/*", "static"],
+    "assets": ["mail/templates/**/*", "static/"],
     "watchAssets": true
   }
 }

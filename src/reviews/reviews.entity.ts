@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Images } from './../images/images.entity';
 
 @Entity('reviews')
 export class Reviews {
@@ -8,12 +15,16 @@ export class Reviews {
   @Column()
   fullname: string;
 
-  @Column()
+  @Column({ nullable: true })
   vacancy: string;
 
   @Column()
-  photo: string;
+  photo_id: number;
 
   @Column({ type: 'text' })
   text: string;
+
+  @OneToMany(() => Images, (images) => images.reviews, { eager: true })
+  @JoinColumn({ name: 'photo_id' })
+  photo: Images;
 }

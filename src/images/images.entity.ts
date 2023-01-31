@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Crew } from '../crew/entities/crew.entity';
+import { Reviews } from './../reviews/reviews.entity';
 
 @Entity('images')
 export class Images {
@@ -33,4 +34,7 @@ export class Images {
 
   @ManyToOne(() => News, (news) => news.pre_images)
   pre_news: News;
+
+  @ManyToOne(()=>Reviews, (reviews)=>reviews.photo)
+  reviews: Reviews
 }

@@ -13,7 +13,7 @@ import { CoursesModule } from './courses/courses.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 @Module({
   imports: [
@@ -41,8 +41,8 @@ import { join } from 'path';
     }),
 
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static/'),
-      exclude: ['/api*'],
+      rootPath: join(resolve(), '/src/static'),
+      serveRoot: '/api/static'
     }),
 
     ImagesModule,
