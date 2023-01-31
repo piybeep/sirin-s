@@ -1,5 +1,5 @@
 import { Images } from '../../images/images.entity';
-import { ApiProperty } from '@nestjs/swagger/dist';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger/dist';
 
 export class GetOneCrewDto {
   @ApiProperty()
@@ -8,7 +8,7 @@ export class GetOneCrewDto {
   fullname: string | null;
   @ApiProperty()
   vacancy: string | null;
-  @ApiProperty()
+  @ApiPropertyOptional()
   sub_vacancy?: string | null;
   @ApiProperty()
   photo_id: number | null;
@@ -16,8 +16,8 @@ export class GetOneCrewDto {
   education: string | null;
   @ApiProperty()
   experience: string | null;
-  @ApiProperty()
+  @ApiPropertyOptional()
   achievements?: string | null;
-  @ApiProperty()
+  @ApiPropertyOptional()
   images?: Array<Images> | null;
 }

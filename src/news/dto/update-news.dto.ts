@@ -9,6 +9,6 @@ export class UpdateNewsDto {
   text?: string;
   @ApiPropertyOptional()
   preview_image_id?: number;
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ isArray: true })
   images?: Array<number>;
 }

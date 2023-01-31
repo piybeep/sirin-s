@@ -14,16 +14,24 @@ import { SessionsService } from './sessions.service';
 import { Request, Response } from 'express';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { JwtRefreshGuard } from './guards/refresh-token.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist/decorators';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger/dist/decorators';
 import { LoginDto } from './dto/login.dto';
 
 @ApiTags('sign')
 @Controller('/sign')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
-  
+  @ApiResponse({ status: 201 })
   @Post()
-  async login(@Res({ passthrough: true }) res: Response, @Body() req: LoginDto) {
+  async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() req: LoginDto,
+  ) {
     const { tokens, user } = await this.sessionsService.login(req);
     res.cookie('refresh_token', tokens.refresh_token, {
       maxAge: 7 * 24 * 60 * 60,
@@ -35,8 +43,10 @@ export class SessionsController {
       account: { id: user.id, email: user.email },
     };
   }
+
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
+  @ApiOkResponse({ status: HttpStatus.OK })
   @Delete()
   logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     this.sessionsService.logout(req.user);
@@ -45,6 +55,7 @@ export class SessionsController {
   }
 
   @UseGuards(JwtRefreshGuard)
+  @ApiResponse({ status: 200 })
   @Get('/sign')
   async refresh(
     @Req() req: Request,
