@@ -1,14 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger/dist';
+import { ApiPropertyOptional } from '@nestjs/swagger/dist';
 
 export class UpdateNewsDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   id?: number;
-  @ApiProperty()
+  @ApiPropertyOptional()
   title?: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   text?: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
   preview_image_id?: number;
-  @ApiProperty()
+  @ApiPropertyOptional()
   images?: Array<number>;
 }

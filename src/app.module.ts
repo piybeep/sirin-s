@@ -41,7 +41,7 @@ import { join } from 'path';
     }),
 
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static/'),
+      rootPath: join(__dirname, 'dist/static/'),
       exclude: ['/api*'],
     }),
 

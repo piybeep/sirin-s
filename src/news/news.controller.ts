@@ -13,7 +13,7 @@ import { UpdateNewsDto } from './dto/update-news.dto';
 import { Put, Query, UseInterceptors } from '@nestjs/common/decorators';
 import { FileFieldsInterceptor } from '@nestjs/platform-express/multer';
 import { News } from 'src/news/entities/news.entity';
-import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 
 @ApiTags('news')
@@ -21,6 +21,7 @@ import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
+  @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Post()
   @UseInterceptors(
@@ -47,6 +48,7 @@ export class NewsController {
     return this.newsService.findOne(+id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Put(':id')
   update(
@@ -58,6 +60,7 @@ export class NewsController {
     return this.newsService.update(+id, updateNewsDto);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
