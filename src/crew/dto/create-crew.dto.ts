@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateCrewDto {
   @ApiProperty()
@@ -11,22 +11,27 @@ export class CreateCrewDto {
   vacancy: string;
 
   @ApiPropertyOptional()
+  @IsNotEmpty()
   sub_vacancy?: string;
   
   @ApiProperty()
+  @IsNumber()
   photo_id: number;
 
   @ApiProperty()
+  @IsNotEmpty()
   education: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   experience: string;
 
   @ApiPropertyOptional()
+  @IsNotEmpty()
   achievements?: string;
 
   @ApiPropertyOptional()
-  
+  @IsArray()
   images?: [number];
 
 }
