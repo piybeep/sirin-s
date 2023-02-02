@@ -4,10 +4,13 @@ import { Images } from './../../images/images.entity';
 export class GetAllCrewDto {
   @ApiProperty()
   id: number;
+
   @ApiProperty()
   fullname: string;
+
   @ApiProperty()
   vacancy: string;
-  @ApiProperty()
+  
+  @ApiProperty({ isArray: true })
   photo: Images[];
 }
