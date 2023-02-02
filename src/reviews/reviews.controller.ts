@@ -1,9 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
-import { Body, Post, Query } from '@nestjs/common/decorators';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Post, Query, Put, Param } from '@nestjs/common/decorators';
 import { ReviewsService } from './reviews.service';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { Reviews } from './reviews.entity';
+import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
 
 @ApiTags('reviews')
 @Controller('/reviews')
@@ -24,5 +25,18 @@ export class ReviewsController {
   @Post()
   createReview(@Body() createReviewDto: CreateReviewDto) {
     return this.reviewsService.create(createReviewDto);
+  }
+
+  @ApiOkResponse({
+    type: Reviews,
+  })
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
+  @Put(':id')
+  updateReview(
+    @Param('id') id: string,
+    @Body() updateReviewDto: Partial<CreateReviewDto>,
+  ) {
+    return this.reviewsService.update(+id, updateReviewDto);
   }
 }
