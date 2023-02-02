@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
-import { IsNotEmpty } from 'class-validator/types/decorator/decorators';
+import { IsNotEmpty } from 'class-validator';
 export class CreateCourseDto {
   @ApiProperty()
   @IsNotEmpty()
