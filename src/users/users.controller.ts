@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Delete, Put, Req /* Res */ } from '@nestjs/common/decorators';
@@ -26,6 +26,7 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
+  @ApiResponse({ type: User, status: 200 })
   @Put()
   async update(@Req() req: Request) {
     const userDto: UpdateUserDto = req.body;
@@ -36,6 +37,9 @@ export class UsersController {
     return await this.usersService.update(user.sub, userDto);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AccessTokenGuard)
+  @ApiResponse({ type: User, status: 200 })
   @Delete()
   async delete(@Body() email: string) {
     return await this.usersService.delete(email);
