@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateCrewDto {
@@ -13,7 +14,7 @@ export class CreateCrewDto {
   @ApiPropertyOptional()
   @IsNotEmpty()
   sub_vacancy?: string;
-  
+
   @ApiProperty()
   @IsNumber()
   photo_id: number;
@@ -31,7 +32,7 @@ export class CreateCrewDto {
   achievements?: string;
 
   @ApiPropertyOptional()
+  @Type(() => Number)
   @IsArray()
-  images?: [number];
-
+  images?: number[];
 }
