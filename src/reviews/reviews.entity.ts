@@ -18,7 +18,7 @@ export class Reviews {
   @Column({ nullable: true })
   vacancy: string;
 
-  @Column()
+  @Column({nullable: true})
   photo_id: number;
 
   @Column({ type: 'text' })
