@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
+import { Images } from './../../images/images.entity';
 
 export class GetAllCrewDto {
   @ApiProperty()
@@ -8,5 +9,5 @@ export class GetAllCrewDto {
   @ApiProperty()
   vacancy: string;
   @ApiProperty()
-  photo_id: number;
+  photo: Images[];
 }
