@@ -1,5 +1,6 @@
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   OneToMany,
@@ -20,6 +21,7 @@ export class User {
   password: string;
 
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
     const salt = await genSalt(10);
     this.password = await hash(this.password, salt);
