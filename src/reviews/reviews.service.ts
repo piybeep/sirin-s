@@ -40,33 +40,40 @@ export class ReviewsService {
         photo = _photo;
       }
     }
+    console.log(photo.id, review.photo_id);
 
     return this.reviewRepository.save({
-      fulllname: review.fullname,
+      fullname: review.fullname,
       vacancy: review.vacancy,
-      photo,
+      photo: [photo],
+      photo_id: photo.id || review.photo_id,
       text: review.text,
     });
   }
   async update(id: number, review: UpdateReviewDto) {
     const _review = await this.reviewRepository.findOneBy({ id });
     if (!_review) throw new NotFoundException('Нет такого отзыва');
+
     const payload = {
-      fulllname: review.fullname,
-      vacancy: review.vacancy,
-      text: review.text,
+      id: id || _review.id,
+      fullname: review.fullname || _review.fullname,
+      text: review.text || _review.text,
+      vacancy: review.vacancy || _review.vacancy,
+      photo_id: review.photo_id || _review.photo_id,
     };
-    let photo: Images | null = null;
+    let photo = {};
     if (review.photo_id) {
       const _photo = await this.imagesService.getImage(review.photo_id);
       if (_photo) photo = _photo;
     } else {
       const _photo_old = await this.imagesService.getImage(_review.photo_id);
-      photo = _photo_old;
+      if (_photo_old) {
+        photo = _photo_old;
+      }
     }
     const result = await this.reviewRepository.save({
       ...payload,
-      photo: photo || undefined,
+      photo: [photo],
     });
     return { id: result.id };
   }
