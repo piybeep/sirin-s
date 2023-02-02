@@ -32,7 +32,7 @@ export class CreateCrewDto {
   achievements?: string;
 
   @ApiPropertyOptional()
-  @Type(() => Number)
-  @IsArray()
+  @Type(() => Number )
+  @IsArray({each: true})
   images?: number[];
 }
