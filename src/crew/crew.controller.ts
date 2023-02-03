@@ -14,7 +14,7 @@ import { Crew } from './entities/crew.entity';
 export class CrewController {
   constructor(private readonly crewService: CrewService) {}
 
-   @ApiOkResponse({
+  @ApiOkResponse({
     type: Crew,
     isArray: true,
   })

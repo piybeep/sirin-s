@@ -7,7 +7,7 @@ import { Contacts } from './contacts.entity';
 @Controller('/contacts')
 export class ContactsController {
   constructor(private readonly contactsService: ContactsService) {}
-  
+
   @ApiOkResponse({
     type: Contacts,
     isArray: true,

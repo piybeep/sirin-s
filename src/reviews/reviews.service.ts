@@ -33,7 +33,7 @@ export class ReviewsService {
   async create(review: CreateReviewDto) {
     let photo: Partial<Images> = {};
     if (review.photo_id) {
-      let _photo: Images | null = await this.imagesService.getImage(
+      const _photo: Images | null = await this.imagesService.getImage(
         review.photo_id,
       );
       if (_photo) {
