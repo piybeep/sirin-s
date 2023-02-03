@@ -23,9 +23,8 @@ export class NewsService {
   async create(createNewsDto: CreateNewsDto) {
     try {
       const payload: Partial<News> = { ...createNewsDto };
-      let pre_images: Images | null;
       if (createNewsDto.preview_image_id) {
-        pre_images = await this.imagesService.getImage(
+        const pre_images: Images | null = await this.imagesService.getImage(
           createNewsDto.preview_image_id,
         );
         if (pre_images) {
@@ -74,9 +73,8 @@ export class NewsService {
     }
 
     let payload = { ...updateNewsDto, images: _images, id };
-    let preview_image: Images | null;
     if (updateNewsDto.preview_image_id) {
-      preview_image = await this.imagesService.getImage(
+      const preview_image: Images | null = await this.imagesService.getImage(
         updateNewsDto.preview_image_id,
       );
       if (preview_image)
