@@ -11,6 +11,6 @@ export class GetAllCrewDto {
   @ApiProperty()
   vacancy: string;
 
-  @ApiProperty({ isArray: true })
-  photo: Images[];
+  @ApiProperty()
+  photo: Images;
 }
