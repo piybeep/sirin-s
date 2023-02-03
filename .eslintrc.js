@@ -3,9 +3,7 @@ module.exports = {
   env: {
     es6: true,
   },
-  extends: [
-    'plugin:@moneteam/nestjs/recommended',
-  ],
+  extends: ['eslint:/recommended', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
@@ -13,9 +11,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 'es2019',
   },
-  plugins: [
-    '@moneteam/nestjs',
-  ],
+  plugins: ['@typescript-eslint'],
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
