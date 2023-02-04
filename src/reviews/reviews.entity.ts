@@ -24,7 +24,11 @@ export class Reviews {
   @Column({ type: 'text' })
   text: string;
 
-  @OneToMany(() => Images, (images) => images.reviews, { eager: true })
+  @OneToMany(() => Images, (images) => images.reviews, { eager: true, onDelete: "CASCADE" })
   @JoinColumn({ name: 'photo_id' })
   photo: Images[];
+
+  
+
+
 }

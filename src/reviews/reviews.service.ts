@@ -19,7 +19,7 @@ export class ReviewsService {
     private readonly imagesService: ImagesService,
   ) {}
 
-  find(start: number, count: number) {
+  async find(start: number, count: number) {
     if (!start) start = 1;
     if (!count) count = 12;
     if (isNaN(start) || isNaN(count) || start <= 0 || count <= 0) {
@@ -27,7 +27,10 @@ export class ReviewsService {
         'parameters start and count must be an integer',
       );
     }
-    return this.reviewRepository.findAndCount({ skip: start - 1, take: count });
+    return await this.reviewRepository.findAndCount({
+      skip: start - 1,
+      take: count,
+    });
   }
 
   async create(review: CreateReviewDto) {
@@ -40,8 +43,6 @@ export class ReviewsService {
         photo = _photo;
       }
     }
-    console.log(photo.id, review.photo_id);
-
     return this.reviewRepository.save({
       fullname: review.fullname,
       vacancy: review.vacancy,
@@ -76,5 +77,15 @@ export class ReviewsService {
       photo: [photo],
     });
     return { id: result.id };
+  }
+
+  async findOne(id: number) {
+    return this.reviewRepository.findOneBy({ id });
+  }
+
+  async delete(id: number) {
+    const _review = await this.reviewRepository.findOneBy({ id });
+    if (_review) return this.reviewRepository.remove(_review);
+    return null
   }
 }

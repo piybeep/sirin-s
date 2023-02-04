@@ -1,9 +1,17 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { Body, Post, Query, Put, Param } from '@nestjs/common/decorators';
+import { BadRequestException, Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Post,
+  Query,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common/decorators';
 import { ReviewsService } from './reviews.service';
 import {
   ApiBearerAuth,
   ApiOkResponse,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger/dist/decorators';
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -42,5 +50,27 @@ export class ReviewsController {
     @Body() updateReviewDto: Partial<CreateReviewDto>,
   ) {
     return this.reviewsService.update(+id, updateReviewDto);
+  }
+
+  @ApiResponse({
+    type: Reviews,
+    status: 200,
+  })
+  @Get(':id')
+  getOneReview(@Param('id') id: string) {
+    if (!isNaN(+id)) return this.reviewsService.findOne(+id);
+    else throw new BadRequestException();
+  }
+
+  @ApiOkResponse({
+    type: Reviews,
+  })
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
+  @Delete(':id')
+  deleteReview(@Param('id') id: string) {
+    if (!isNaN(+id)) return this.reviewsService.delete(+id);
+    else throw new BadRequestException();
+
   }
 }

@@ -35,6 +35,6 @@ export class Images {
   @ManyToOne(() => News, (news) => news.pre_images)
   pre_news: News;
 
-  @ManyToOne(() => Reviews, (reviews) => reviews.photo)
+  @ManyToOne(() => Reviews, (reviews) => reviews.photo, { onDelete: 'CASCADE' })
   reviews: Reviews;
 }
