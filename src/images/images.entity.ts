@@ -21,18 +21,18 @@ export class Images {
   @Column()
   type: string;
 
-  @ManyToMany(() => Crew, (crew) => crew.images)
+  @ManyToMany(() => Crew, (crew) => crew.images, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'crew_images' })
   crew: Crew[];
 
-  @ManyToOne(() => Crew, (crew) => crew.photo)
+  @ManyToOne(() => Crew, (crew) => crew.photo, { onDelete: 'CASCADE' })
   crew_photo: Crew;
 
-  @ManyToMany(() => News, (news) => news.images)
+  @ManyToMany(() => News, (news) => news.images, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'news_images' })
   news: News[];
 
-  @ManyToOne(() => News, (news) => news.pre_images)
+  @ManyToOne(() => News, (news) => news.pre_images, { onDelete: 'CASCADE' })
   pre_news: News;
 
   @ManyToOne(() => Reviews, (reviews) => reviews.photo, { onDelete: 'CASCADE' })

@@ -6,6 +6,7 @@ import {
   IsString,
   IsInt,
   IsPositive,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateCrewDto {
@@ -20,6 +21,7 @@ export class CreateCrewDto {
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   sub_vacancy?: string;
 
   @ApiProperty()
@@ -40,9 +42,11 @@ export class CreateCrewDto {
   @ApiPropertyOptional()
   @IsNotEmpty()
   @IsString()
+  @IsOptional()
   achievements?: string;
 
   @ApiPropertyOptional({ isArray: true })
+  @IsOptional()
   @Type(() => Number)
   @IsArray()
   images?: number[];
