@@ -36,7 +36,8 @@ export class SessionsController {
     res.cookie('refresh_token', tokens.refresh_token, {
       maxAge: 7 * 24 * 60 * 60,
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'none',
     });
     return {
       access_token: tokens.access_token,
@@ -70,7 +71,8 @@ export class SessionsController {
     res.cookie('refresh_token', refresh_token, {
       maxAge: 7 * 24 * 60 * 60,
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'none',
     });
     return { access_token, account: { id: _user.id, email: _user.email } };
   }
