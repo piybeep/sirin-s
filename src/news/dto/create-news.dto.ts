@@ -1,6 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger/dist';
 import { Type } from 'class-transformer';
-import { IsArray, IsInt, IsPositive, IsString, IsOptional } from 'class-validator';
+import {
+  IsArray,
+  IsInt,
+  IsPositive,
+  IsString,
+  IsOptional,
+} from 'class-validator';
 // import { Images } from './../../images/images.entity';
 export class CreateNewsDto {
   @ApiProperty()
@@ -21,5 +27,5 @@ export class CreateNewsDto {
   @IsArray()
   @IsOptional()
   @Type(() => Number)
-  images?: number[] ;
+  images?: number[];
 }

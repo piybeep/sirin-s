@@ -1,5 +1,11 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, Length, IsEmail, IsStrongPassword, IsOptional } from 'class-validator';
+import {
+  IsString,
+  Length,
+  IsEmail,
+  IsStrongPassword,
+  IsOptional,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger/dist';
 
 export class UpdateUserDto {
