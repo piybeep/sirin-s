@@ -25,10 +25,10 @@ export class News {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToMany(() => Images, (images) => images.news, { eager: true })
+  @ManyToMany(() => Images, (images) => images.news, { eager: true, onDelete: 'CASCADE'  })
   images: Images[];
 
-  @OneToMany(() => Images, (images) => images.pre_news, { eager: true })
+  @OneToMany(() => Images, (images) => images.pre_news, { eager: true, onDelete: 'CASCADE'  })
   @JoinColumn({ name: 'preview_image_id' })
   pre_images: Images[];
 }

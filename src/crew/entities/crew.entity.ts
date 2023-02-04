@@ -36,13 +36,14 @@ export class Crew {
   @Column({ nullable: true })
   achievements: string;
 
-  @ManyToMany(() => Images, (images) => images.crew, { eager: true })
+  @ManyToMany(() => Images, (images) => images.crew, { eager: true, onDelete: 'CASCADE'  })
   @JoinTable({ name: 'crew_images' })
   images: Images[];
 
-  @OneToMany(() => Images, (images) => images.crew_photo, { eager: true })
+  @OneToMany(() => Images, (images) => images.crew_photo, { eager: true, onDelete: 'CASCADE'  })
   @JoinColumn({ name: 'photo_id' })
   photo: Images;
+  
   @UpdateDateColumn()
   updatedAt: Date;
 }
