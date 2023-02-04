@@ -21,7 +21,7 @@ export class Images {
   @Column()
   type: string;
 
-  @ManyToMany(() => Crew, (crew) => crew.images,{ onDelete: 'CASCADE' })
+  @ManyToMany(() => Crew, (crew) => crew.images, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'crew_images' })
   crew: Crew[];
 
