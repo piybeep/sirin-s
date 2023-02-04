@@ -1,4 +1,9 @@
-import { BadRequestException, Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  UseGuards,
+} from '@nestjs/common';
 import {
   Body,
   Post,
@@ -71,6 +76,5 @@ export class ReviewsController {
   deleteReview(@Param('id') id: string) {
     if (!isNaN(+id)) return this.reviewsService.delete(+id);
     else throw new BadRequestException();
-
   }
 }

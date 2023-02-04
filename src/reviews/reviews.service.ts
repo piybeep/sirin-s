@@ -86,6 +86,6 @@ export class ReviewsService {
   async delete(id: number) {
     const _review = await this.reviewRepository.findOneBy({ id });
     if (_review) return this.reviewRepository.remove(_review);
-    return null
+    return null;
   }
 }
