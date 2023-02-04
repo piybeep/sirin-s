@@ -16,12 +16,10 @@ export class CreateCrewDto {
   fullname: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   vacancy: string;
 
   @ApiPropertyOptional()
-  @IsNotEmpty()
   @IsString()
   @IsOptional()
   sub_vacancy?: string;
@@ -50,6 +48,6 @@ export class CreateCrewDto {
   @ApiPropertyOptional({ isArray: true })
   @IsOptional()
   @Type(() => Number)
-  @IsArray({ each: true })
+  @IsArray()
   images?: number[];
 }

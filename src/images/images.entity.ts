@@ -25,16 +25,16 @@ export class Images {
   @JoinTable({ name: 'crew_images' })
   crew: Crew[];
 
-  @ManyToOne(() => Crew, (crew) => crew.photo, {onDelete: 'CASCADE'})
+  @ManyToOne(() => Crew, (crew) => crew.photo, { onDelete: 'CASCADE' })
   crew_photo: Crew;
 
-  @ManyToMany(() => News, (news) => news.images, {onDelete: 'CASCADE'})
+  @ManyToMany(() => News, (news) => news.images, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'news_images' })
   news: News[];
 
-  @ManyToOne(() => News, (news) => news.pre_images, {onDelete: 'CASCADE'})
+  @ManyToOne(() => News, (news) => news.pre_images, { onDelete: 'CASCADE' })
   pre_news: News;
 
-  @ManyToOne(() => Reviews, (reviews) => reviews.photo, { onDelete: 'CASCADE'})
+  @ManyToOne(() => Reviews, (reviews) => reviews.photo, { onDelete: 'CASCADE' })
   reviews: Reviews;
 }
