@@ -1,6 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Images } from './../../images/images.entity';
-import { IsArray, IsString, IsOptional, IsInt, IsPositive } from 'class-validator';
+import {
+  IsArray,
+  IsString,
+  IsOptional,
+  IsInt,
+  IsPositive,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateCrewDto {

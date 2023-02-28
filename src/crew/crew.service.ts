@@ -61,7 +61,7 @@ export class CrewService {
     });
     if (crew_member) {
       await this.crewRepository.remove(crew_member);
-      return
+      return;
     } else {
       throw new HttpException(
         'Нет члена команды с таким id',
