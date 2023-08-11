@@ -1,12 +1,12 @@
 import {
-  Controller,
-  UseGuards,
   Body,
-  Param,
+  Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
-  Delete,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -15,7 +15,7 @@ import {
 } from '@nestjs/swagger/dist/decorators';
 import { CrewService } from './crew.service';
 import { CreateCrewDto } from './dto/create-crew.dto';
-import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
+import { AccessTokenGuard } from '../sessions/guards/access-token.guard';
 import { Crew } from './entities/crew.entity';
 import { UpdateCrewDto } from './dto/update-crew.dto';
 

@@ -1,14 +1,19 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { ApiBearerAuth } from '@nestjs/swagger';
-import { Delete, Put, Req /* Res */ } from '@nestjs/common/decorators';
+import { Delete, Put, Req } from '@nestjs/common/decorators';
 import { CreateUserDto } from './dto/create-user.dto';
-import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
+import { AccessTokenGuard } from '../sessions/guards/access-token.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Request /* Response */ } from 'express';
+import { Request } from 'express';
 import { UnauthorizedException } from '@nestjs/common/exceptions';
 
 @ApiTags('users')

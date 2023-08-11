@@ -9,7 +9,7 @@ import { Sessions } from './entities/sessions.entity';
 import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
 import { SessionsController } from './sessions.controller';
 import { SessionsService } from './sessions.service';
-import { UsersModule } from './../users/users.module';
+import { UsersModule } from '../users/users.module';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 
 @Module({

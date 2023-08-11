@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Images } from './../images/images.entity';
+import { Images } from '../images/images.entity';
 
 @Entity('reviews')
 export class Reviews {

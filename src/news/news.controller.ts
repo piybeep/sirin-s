@@ -1,10 +1,10 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
@@ -19,7 +19,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger/dist/decorators';
-import { AccessTokenGuard } from './../sessions/guards/access-token.guard';
+import { AccessTokenGuard } from '../sessions/guards/access-token.guard';
 
 @ApiTags('news')
 @Controller('/news')

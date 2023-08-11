@@ -2,12 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
-  JoinColumn,
 } from 'typeorm';
-import { ManyToMany } from 'typeorm';
-import { Images } from './../../images/images.entity';
+import { Images } from '../../images/images.entity';
+
 @Entity('news')
 export class News {
   @PrimaryGeneratedColumn()

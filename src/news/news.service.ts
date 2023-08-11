@@ -1,15 +1,15 @@
 import {
-  Injectable,
   BadRequestException,
-  HttpStatus,
   HttpException,
+  HttpStatus,
+  Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
 import { News } from 'src/news/entities/news.entity';
 import { Repository } from 'typeorm';
-import { Images } from './../images/images.entity';
+import { Images } from '../images/images.entity';
 import { ImagesService } from 'src/images/images.service';
 
 @Injectable()

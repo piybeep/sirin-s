@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Crew } from '../crew/entities/crew.entity';
-import { Reviews } from './../reviews/reviews.entity';
+import { Reviews } from '../reviews/reviews.entity';
 
 @Entity('images')
 export class Images {

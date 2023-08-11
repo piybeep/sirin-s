@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reviews } from './reviews.entity';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { ImagesService } from './../images/images.service';
+import { ImagesService } from '../images/images.service';
 import { Images } from 'src/images/images.entity';
 import { UpdateReviewDto } from './dto/update-review.dto';
 
@@ -51,6 +51,7 @@ export class ReviewsService {
       text: review.text,
     });
   }
+
   async update(id: number, review: UpdateReviewDto) {
     const _review = await this.reviewRepository.findOneBy({ id });
     if (!_review) throw new NotFoundException('Нет такого отзыва');
@@ -60,21 +61,22 @@ export class ReviewsService {
       fullname: review.fullname || _review.fullname,
       text: review.text || _review.text,
       vacancy: review.vacancy || _review.vacancy,
-      photo_id: review.photo_id || _review.photo_id,
     };
-    let photo = {};
+    const photo: Images[] = [];
     if (review.photo_id) {
       const _photo = await this.imagesService.getImage(review.photo_id);
-      if (_photo) photo = _photo;
+      if (_photo) photo.push(_photo);
     } else {
-      const _photo_old = await this.imagesService.getImage(_review.photo_id);
-      if (_photo_old) {
-        photo = _photo_old;
+      if (review.photo_id !== null) {
+        const _photo_old = await this.imagesService.getImage(_review.photo_id);
+        if (_photo_old) {
+          photo.push(_photo_old);
+        }
       }
     }
     const result = await this.reviewRepository.save({
       ...payload,
-      photo: [photo],
+      photo: photo,
     });
     return { id: result.id };
   }

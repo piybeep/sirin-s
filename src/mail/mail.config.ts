@@ -5,7 +5,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 export const getMailConfig = async (
   configService: ConfigService,
 ): Promise<any> => {
-  const conf = {
+  return {
     transport: {
       host: configService.get('MAIL_HOST'),
       port: 465,
@@ -28,5 +28,4 @@ export const getMailConfig = async (
       },
     },
   };
-  return conf;
 };

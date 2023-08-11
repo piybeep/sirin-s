@@ -3,10 +3,10 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 import { GetOneCrewDto } from './dto/get-one-crew.dto';
 import { GetAllCrewDto } from './dto/get-all-crew.dto';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCrewDto } from './dto/create-crew.dto';
 import { Images } from 'src/images/images.entity';
-import { ImagesService } from './../images/images.service';
+import { ImagesService } from '../images/images.service';
 import { UpdateCrewDto } from './dto/update-crew.dto';
 
 @Injectable()

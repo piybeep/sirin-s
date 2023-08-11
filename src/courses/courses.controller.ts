@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { MailService } from './../mail/mail.service';
+import { MailService } from '../mail/mail.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Course } from './entities/course.entity';
 

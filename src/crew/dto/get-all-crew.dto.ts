@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
-import { Images } from './../../images/images.entity';
+import { Images } from '../../images/images.entity';
 
 export class GetAllCrewDto {
   @ApiProperty()
