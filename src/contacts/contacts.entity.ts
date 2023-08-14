@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-enum contactsType {
+export enum contactsType {
   PHONE = 'phone',
   EMAIL = 'email',
 }

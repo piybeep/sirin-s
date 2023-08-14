@@ -1,7 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
-import { ApiTags, ApiOkResponse } from '@nestjs/swagger/dist/decorators';
-import { Contacts } from './contacts.entity';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { Contacts, contactsType } from './contacts.entity';
 
 @ApiTags('contacts')
 @Controller('/contacts')
@@ -15,5 +15,15 @@ export class ContactsController {
   @Get()
   getContacts() {
     return this.contactsService.getContacts();
+  }
+
+  @Post()
+  create(@Body() dto: { type: contactsType; data: string }) {
+    return this.contactsService.create(dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.contactsService.remove(+id);
   }
 }
