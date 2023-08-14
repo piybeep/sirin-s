@@ -28,7 +28,7 @@ export class CoursesService {
       skip: start - 1,
       take: count,
       order: {
-        id: 'ASC',
+        id: 'DESC',
       },
     });
   }
