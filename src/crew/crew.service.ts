@@ -21,7 +21,7 @@ export class CrewService {
     return await this.crewRepository.find({
       select: ['id', 'fullname', 'vacancy', 'photo'],
       order: {
-        createdAt: 'DESC',
+        createdAt: 'ASC',
       },
     });
   }

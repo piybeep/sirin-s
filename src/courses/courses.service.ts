@@ -24,6 +24,12 @@ export class CoursesService {
         'parameters start and count must be an integer',
       );
     }
-    return this.courseRepository.findAndCount({ skip: start - 1, take: count });
+    return this.courseRepository.findAndCount({
+      skip: start - 1,
+      take: count,
+      order: {
+        id: 'ASC',
+      },
+    });
   }
 }
