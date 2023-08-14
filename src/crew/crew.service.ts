@@ -20,6 +20,9 @@ export class CrewService {
   async findAll(): Promise<GetAllCrewDto[]> {
     return await this.crewRepository.find({
       select: ['id', 'fullname', 'vacancy', 'photo'],
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 

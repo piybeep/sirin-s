@@ -1,12 +1,13 @@
 import {
   Column,
-  UpdateDateColumn,
+  CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Images } from '../../images/images.entity';
 
@@ -52,4 +53,7 @@ export class Crew {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
