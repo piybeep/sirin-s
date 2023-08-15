@@ -29,6 +29,9 @@ export class Crew {
   photo_id: number;
 
   @Column()
+  banner_id: number;
+
+  @Column()
   education: string;
 
   @Column()
@@ -50,6 +53,14 @@ export class Crew {
   })
   @JoinColumn({ name: 'photo_id' })
   photo: Images;
+
+  @OneToMany(() => Images, (images) => images.crew_banner, {
+    eager: true,
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
+  @JoinColumn({ name: 'banner_id' })
+  banner: Images;
 
   @UpdateDateColumn()
   updatedAt: Date;

@@ -28,6 +28,9 @@ export class Images {
   @ManyToOne(() => Crew, (crew) => crew.photo, { onDelete: 'CASCADE' })
   crew_photo: Crew;
 
+  @ManyToOne(() => Crew, (crew) => crew.banner, { onDelete: 'CASCADE' })
+  crew_banner: Crew;
+
   @ManyToMany(() => News, (news) => news.images, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'news_images' })
   news: News[];

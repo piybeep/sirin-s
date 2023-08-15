@@ -54,6 +54,17 @@ export class CrewService {
           400,
         );
     }
+    if (createCrewDto.banner_id) {
+      const photo: Images | null = await this.imagesService.getImage(
+        createCrewDto.banner_id,
+      );
+      if (photo) payload.banner = [photo];
+      else
+        throw new HttpException(
+          `Нет фотограии с id = ${createCrewDto.banner_id}`,
+          400,
+        );
+    }
     return await this.crewRepository.save(payload);
   }
 
@@ -96,6 +107,12 @@ export class CrewService {
         data.photo_id,
       );
       if (photo) payload = Object.assign(payload, { photo: [photo] });
+    }
+    if (data.banner_id) {
+      const photo: Images | null = await this.imagesService.getImage(
+        data.banner_id,
+      );
+      if (photo) payload = Object.assign(payload, { banner: [photo] });
     }
 
     const result = await this.crewRepository.save(payload);

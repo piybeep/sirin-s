@@ -32,6 +32,12 @@ export class UpdateCrewDto {
   photo_id?: number;
 
   @ApiPropertyOptional()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  banner_id?: number;
+
+  @ApiPropertyOptional()
   @IsString()
   @IsOptional()
   education?: string;

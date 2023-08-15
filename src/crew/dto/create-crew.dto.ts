@@ -2,11 +2,11 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsArray,
-  IsNotEmpty,
-  IsString,
   IsInt,
-  IsPositive,
+  IsNotEmpty,
   IsOptional,
+  IsPositive,
+  IsString,
 } from 'class-validator';
 
 export class CreateCrewDto {
@@ -28,6 +28,12 @@ export class CreateCrewDto {
   @IsInt()
   @IsPositive()
   photo_id: number;
+
+  @ApiPropertyOptional()
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  banner_id?: number;
 
   @ApiProperty()
   @IsNotEmpty()
