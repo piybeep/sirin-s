@@ -28,7 +28,7 @@ export class Crew {
   @Column()
   photo_id: number;
 
-  @Column()
+  @Column({ nullable: true })
   banner_id: number;
 
   @Column()
