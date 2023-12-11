@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { MailService } from '../mail/mail.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Course } from './entities/course.entity';
 
@@ -9,8 +8,7 @@ import { Course } from './entities/course.entity';
 @Controller('/courses')
 export class CoursesController {
   constructor(
-    private readonly coursesService: CoursesService,
-    private readonly mailService: MailService,
+    private readonly coursesService: CoursesService, // private readonly mailService: MailService,
   ) {}
 
   @ApiOkResponse({
@@ -19,7 +17,7 @@ export class CoursesController {
   @Post()
   async create(@Body() createCourseDto: CreateCourseDto) {
     const course = await this.coursesService.create(createCourseDto);
-    await this.mailService.sendNewApplicationMail(course);
+    // await this.mailService.sendNewApplicationMail(course);
     return course;
   }
 
