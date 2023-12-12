@@ -61,4 +61,11 @@ export class CrewController {
   update(@Param('id') member_id: string, @Body() payload: UpdateCrewDto) {
     return this.crewService.update(Number(member_id), payload);
   }
+
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
+  @Put('/positions')
+  updatePositions(@Body() payload: { id: number; position: number }[]) {
+    return this.crewService.updatePositions(payload);
+  }
 }

@@ -118,4 +118,29 @@ export class CrewService {
     const result = await this.crewRepository.save(payload);
     return { id: result.id };
   }
+
+  async updatePositions(data: { id: number; position: number }[]) {
+    for (const item of data) {
+      const crewMember = await this.findOne(item.id);
+      if (!crewMember) continue;
+
+      const positionTaken = await this.crewRepository.findOneBy({
+        position: item.position,
+      });
+      if (positionTaken) {
+        await this.crewRepository.update(positionTaken.id, {
+          position: positionTaken.position + 100,
+        });
+      }
+
+      await this.crewRepository.update(item.id, { position: item.position });
+
+      if (positionTaken) {
+        await this.crewRepository.update(positionTaken.id, {
+          position: crewMember.position as number,
+        });
+      }
+    }
+    return this.findAll();
+  }
 }
