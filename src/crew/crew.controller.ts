@@ -57,15 +57,15 @@ export class CrewController {
 
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
-  @Put(':id')
-  update(@Param('id') member_id: string, @Body() payload: UpdateCrewDto) {
-    return this.crewService.update(Number(member_id), payload);
+  @Put('positions')
+  updatePositions(@Body() payload: { id: number; position: number }[]) {
+    return this.crewService.updatePositions(payload);
   }
 
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
-  @Put('/positions')
-  updatePositions(@Body() payload: { id: number; position: number }[]) {
-    return this.crewService.updatePositions(payload);
+  @Put(':id')
+  update(@Param('id') member_id: string, @Body() payload: UpdateCrewDto) {
+    return this.crewService.update(Number(member_id), payload);
   }
 }
