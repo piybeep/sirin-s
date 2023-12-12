@@ -9,6 +9,9 @@ export class GetAllCrewDto {
   fullname: string;
 
   @ApiProperty()
+  position: number;
+
+  @ApiProperty()
   vacancy: string;
 
   @ApiProperty()

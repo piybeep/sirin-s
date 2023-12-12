@@ -16,6 +16,11 @@ export class UpdateCrewDto {
   fullname?: string;
 
   @ApiPropertyOptional()
+  @IsInt()
+  @IsPositive()
+  position?: number;
+
+  @ApiPropertyOptional()
   @IsString()
   @IsOptional()
   vacancy?: string;

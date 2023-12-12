@@ -16,6 +16,11 @@ export class CreateCrewDto {
   fullname: string;
 
   @ApiProperty()
+  @IsInt()
+  @IsPositive()
+  position: number;
+
+  @ApiProperty()
   @IsString()
   vacancy: string;
 

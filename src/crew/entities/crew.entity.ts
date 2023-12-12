@@ -19,6 +19,9 @@ export class Crew {
   @Column()
   fullname: string;
 
+  @Column({ nullable: true, unique: true })
+  position: number;
+
   @Column()
   vacancy: string;
 

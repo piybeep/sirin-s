@@ -7,6 +7,8 @@ export class GetOneCrewDto {
   @ApiProperty()
   fullname: string | null;
   @ApiProperty()
+  position?: number | null;
+  @ApiProperty()
   vacancy: string | null;
   @ApiPropertyOptional()
   sub_vacancy?: string | null;
