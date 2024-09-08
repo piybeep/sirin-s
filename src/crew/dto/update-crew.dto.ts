@@ -18,6 +18,7 @@ export class UpdateCrewDto {
   @ApiPropertyOptional()
   @IsInt()
   @IsPositive()
+  @IsOptional()
   position?: number;
 
   @ApiPropertyOptional()
