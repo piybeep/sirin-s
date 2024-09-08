@@ -15,10 +15,11 @@ export class CreateCrewDto {
   @IsString()
   fullname: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsInt()
   @IsPositive()
-  position: number;
+  @IsOptional()
+  position?: number;
 
   @ApiProperty()
   @IsString()
