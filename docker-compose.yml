@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./src:/app/src/
+      - ./dist/static:/app/dist/static
     depends_on:
       - db
     ports:
